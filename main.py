@@ -63,11 +63,28 @@ while True:
 
         for hand_landmarks in results.multi_hand_landmarks:
 
+            mp_drawing.draw_landmarks(
+                frame,
+                hand_landmarks,
+                mp_hands.HAND_CONNECTIONS
+            )
+
             peace_signs.append(is_peace_sign(hand_landmarks))
 
         if len(peace_signs) == 2 and all(peace_signs):
 
             blur = True
+
+        status = f"Hands: {len(peace_signs)} | Peace signs: {sum(peace_signs)}"
+        cv2.putText(
+            frame,
+            status,
+            (10, 30),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.8,
+            (0, 255, 0),
+            2
+        )
 
     else:
 
